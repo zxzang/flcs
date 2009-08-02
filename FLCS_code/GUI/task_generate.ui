@@ -1,0 +1,149 @@
+<ui version="4.0" >
+ <class>Anuluj</class>
+ <widget class="QDialog" name="Anuluj" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>352</width>
+    <height>206</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Dialog</string>
+  </property>
+  <widget class="QPushButton" name="button_ok" >
+   <property name="geometry" >
+    <rect>
+     <x>30</x>
+     <y>170</y>
+     <width>80</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text" >
+    <string>OK</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="button_anuluj" >
+   <property name="geometry" >
+    <rect>
+     <x>140</x>
+     <y>170</y>
+     <width>80</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text" >
+    <string>Anuluj</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="patter" >
+   <property name="geometry" >
+    <rect>
+     <x>20</x>
+     <y>30</y>
+     <width>271</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QSpinBox" name="max_lenght" >
+   <property name="geometry" >
+    <rect>
+     <x>240</x>
+     <y>90</y>
+     <width>54</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QSpinBox" name="min_lenght" >
+   <property name="geometry" >
+    <rect>
+     <x>240</x>
+     <y>120</y>
+     <width>54</width>
+     <height>23</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QSpinBox" name="collection_size" >
+   <property name="geometry" >
+    <rect>
+     <x>240</x>
+     <y>150</y>
+     <width>54</width>
+     <height>23</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label" >
+   <property name="geometry" >
+    <rect>
+     <x>20</x>
+     <y>10</y>
+     <width>281</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text" >
+    <string>Podaj wzór gramatyki w formacie a^n*b^n:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2" >
+   <property name="geometry" >
+    <rect>
+     <x>20</x>
+     <y>90</y>
+     <width>181</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text" >
+    <string>maksymalna dlugosc zdania:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_3" >
+   <property name="geometry" >
+    <rect>
+     <x>20</x>
+     <y>120</y>
+     <width>181</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text" >
+    <string>minimalna dlugosc zdania:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_4" >
+   <property name="geometry" >
+    <rect>
+     <x>20</x>
+     <y>150</y>
+     <width>181</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text" >
+    <string>ilosc zdan uczacych:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_error" >
+   <property name="geometry" >
+    <rect>
+     <x>20</x>
+     <y>60</y>
+     <width>271</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text" >
+    <string/>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
