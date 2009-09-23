@@ -1,0 +1,1 @@
+Noneraf = 0.5/nf0 = 0.5/nnN = 0/ncf = 18/ngeneralization = none/nPa = 0.0/ncs = 3/nPk = 0.2/nPi = 0.0/nnT = 0/nmemebershipFunction = none/nPm = 0.8/nts = 0/nnelit = 0/nnp = 40/nnrun = 0/nwf = 0/nwc = 1/nba = 1/nwn = 2/nfuzzyUnion = none/nnmax = 0/nwp = 1/nnstart = 0/n
