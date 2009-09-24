@@ -1,0 +1,12 @@
+Design of PSO-based Fuzzy Classification Systems:
+opis modelu który w założniach jest podbny do FLCS - z tego dokumentu wiedzy jeszcze nie użyłem, nie do końca też jeszcze wszystko w nim zrozumiałem (i pewnie dlatego jeszcze z niego nic nie użyłem)
+
+Strategies for Fuzzy Inference within Classifier Systems:
+ta praca pokazuje już kilka używanych podejść do rozmytego systemu, z niej użyłem dużo wzorów do wyznaczania funkcji przynależności, jedynie mogel wnioskowania tutaj użyty jest zupełnie inny.
+Najważniejsze dla mnie są tutaj gotowe wzory, architektura systemu jest tutaj słabo opisana
+
+Venezuela-Rendon:
+propozycja fuckji przybależności (str 3)
+propozycja na rozmyty algorytm kubelkowy (od rozdziału 3.3)
+
+pozostałe artykuły nie wnoszą raczej zbyt wiele do tematu, możliwe że chen_tfs03.pdf jest coś ciekawego ale jak naraznie nie dałem rady go przeczytać całego
