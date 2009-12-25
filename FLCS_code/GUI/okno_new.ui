@@ -6,7 +6,7 @@
     <x>0</x>
     <y>0</y>
     <width>821</width>
-    <height>600</height>
+    <height>646</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -17,13 +17,13 @@
     <property name="geometry" >
      <rect>
       <x>150</x>
-      <y>10</y>
+      <y>20</y>
       <width>631</width>
       <height>491</height>
      </rect>
     </property>
     <property name="currentIndex" >
-     <number>4</number>
+     <number>3</number>
     </property>
     <widget class="QWidget" name="tab" >
      <attribute name="title" >
@@ -775,128 +775,117 @@
        <number>10</number>
       </property>
      </widget>
-    </widget>
-    <widget class="QWidget" name="tab_5" >
-     <attribute name="title" >
-      <string>Strona</string>
-     </attribute>
-     <widget class="QLabel" name="label_27" >
-      <property name="geometry" >
-       <rect>
-        <x>110</x>
-        <y>60</y>
-        <width>281</width>
-        <height>21</height>
-       </rect>
-      </property>
-      <property name="text" >
-       <string>Podaj wzór gramatyki w formacie a^n*b^n:</string>
-      </property>
-     </widget>
      <widget class="QLabel" name="label_28" >
       <property name="geometry" >
        <rect>
-        <x>110</x>
-        <y>140</y>
-        <width>181</width>
-        <height>16</height>
+        <x>300</x>
+        <y>150</y>
+        <width>54</width>
+        <height>18</height>
        </rect>
       </property>
       <property name="text" >
-       <string>minimalna dlugosc zdania:</string>
+       <string>Fuzzy:</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="button_ok" >
+     <widget class="QComboBox" name="comboBoxMembership" >
       <property name="geometry" >
        <rect>
-        <x>120</x>
-        <y>220</y>
-        <width>80</width>
+        <x>460</x>
+        <y>176</y>
+        <width>131</width>
         <height>27</height>
        </rect>
       </property>
-      <property name="text" >
-       <string>OK</string>
-      </property>
+      <item>
+       <property name="text" >
+        <string>Type S</string>
+       </property>
+      </item>
+      <item>
+       <property name="text" >
+        <string>brak</string>
+       </property>
+      </item>
      </widget>
      <widget class="QLabel" name="label_29" >
       <property name="geometry" >
        <rect>
-        <x>110</x>
-        <y>170</y>
-        <width>181</width>
-        <height>21</height>
+        <x>300</x>
+        <y>180</y>
+        <width>131</width>
+        <height>18</height>
        </rect>
       </property>
       <property name="text" >
-       <string>ilosc zdan uczacych:</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="button_anuluj" >
-      <property name="geometry" >
-       <rect>
-        <x>230</x>
-        <y>220</y>
-        <width>80</width>
-        <height>27</height>
-       </rect>
-      </property>
-      <property name="text" >
-       <string>Anuluj</string>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="patter" >
-      <property name="geometry" >
-       <rect>
-        <x>110</x>
-        <y>80</y>
-        <width>271</width>
-        <height>21</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QSpinBox" name="min_lenght" >
-      <property name="geometry" >
-       <rect>
-        <x>330</x>
-        <y>140</y>
-        <width>54</width>
-        <height>23</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QSpinBox" name="max_lenght" >
-      <property name="geometry" >
-       <rect>
-        <x>330</x>
-        <y>110</y>
-        <width>54</width>
-        <height>21</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QSpinBox" name="collection_size" >
-      <property name="geometry" >
-       <rect>
-        <x>330</x>
-        <y>170</y>
-        <width>54</width>
-        <height>23</height>
-       </rect>
+       <string>funkcja przynależności:</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_30" >
       <property name="geometry" >
        <rect>
-        <x>110</x>
-        <y>110</y>
-        <width>181</width>
-        <height>21</height>
+        <x>300</x>
+        <y>214</y>
+        <width>131</width>
+        <height>18</height>
        </rect>
       </property>
       <property name="text" >
-       <string>maksymalna dlugosc zdania:</string>
+       <string>iloczyn rozmyty:</string>
       </property>
+     </widget>
+     <widget class="QComboBox" name="comboBoxUnion" >
+      <property name="geometry" >
+       <rect>
+        <x>460</x>
+        <y>210</y>
+        <width>131</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <item>
+       <property name="text" >
+        <string>klasyczny</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QLabel" name="label_31" >
+      <property name="geometry" >
+       <rect>
+        <x>300</x>
+        <y>250</y>
+        <width>131</width>
+        <height>18</height>
+       </rect>
+      </property>
+      <property name="text" >
+       <string>uogulnienie:</string>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="comboBoxUnion_2" >
+      <property name="geometry" >
+       <rect>
+        <x>461</x>
+        <y>246</y>
+        <width>131</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <item>
+       <property name="text" >
+        <string>kwadrat</string>
+       </property>
+      </item>
+      <item>
+       <property name="text" >
+        <string>pierwiastek</string>
+       </property>
+      </item>
+      <item>
+       <property name="text" >
+        <string>brak</string>
+       </property>
+      </item>
      </widget>
     </widget>
    </widget>
@@ -955,8 +944,8 @@
    <widget class="QPushButton" name="Koniec" >
     <property name="geometry" >
      <rect>
-      <x>10</x>
-      <y>510</y>
+      <x>20</x>
+      <y>530</y>
       <width>121</width>
       <height>31</height>
      </rect>
@@ -991,6 +980,32 @@
      <string>Generuj zdania</string>
     </property>
    </widget>
+   <widget class="QProgressBar" name="progressBar" >
+    <property name="geometry" >
+     <rect>
+      <x>150</x>
+      <y>530</y>
+      <width>661</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="value" >
+     <number>0</number>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_27" >
+    <property name="geometry" >
+     <rect>
+      <x>160</x>
+      <y>510</y>
+      <width>181</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>Process progress:</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar" >
    <property name="geometry" >
@@ -998,7 +1013,7 @@
      <x>0</x>
      <y>0</y>
      <width>821</width>
-     <height>22</height>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuOpcje" >
