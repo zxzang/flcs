@@ -1,0 +1,313 @@
+##klasa ta reperezentowac bedzie gramatyke
+# trzeba zamontowac tutaj funkcje umozliwiajace edycje gramtyki
+# narazie bedzie to jedynie statyczna klasa posiadajaca jedna gramtyke na sztywno
+import string, random
+
+from properties import properties
+
+class gramatyka():
+    '''klasa zaiwera gramatyke wraz z operacja,i na niej dostepnymi'''
+
+    
+    def __init__(self):
+        self.parametry = properties()
+    #Gramatyka w postaci slownika
+    #"S":[classifier("AB"),classifier("AC")],
+        #self.G = {"S":[classifier("AB"),classifier("AC")],"A":[classifier("BA"),classifier("a")],"B":[classifier("CC"),classifier("b")],"C":[classifier("AB"),classifier("a")]}
+        self.G = {"S":[classifier("AB"),classifier("AC")],"C":[classifier("SB"),classifier("a")],"B":[classifier("BB"),classifier("b")],"A":[classifier("a")]}
+        self.classifierNum=0
+        
+        for x in self.G:
+            for y in self.G[x]:
+                self.classifierNum+=1
+    
+    def setProperties(self,p):
+        self.parametry=p
+                
+    def add(self, A, B):
+        '''dodaje kolejne reguly do gramamtyki, jeszcze nie przetestowane czy poprawnie dziala,a z obiektowym podejsciem do klasyfikatora to napewno nie'''
+        tmp=0
+        
+        if self.G.has_key(A):
+            for x in self.G[A]:
+                if x.name==B:
+                    tmp=1
+            if tmp == 0:    
+                self.G[A].append(classifier(B))
+                print "dodalem:" + A +"-->"+B
+                self.classifierNum+=1
+        else:
+            self.G[A] = [classifier(B)]
+            print "dodalem:" + A +"-->"+B
+            self.classifierNum+=1
+            
+    def rem(self,A,B):
+        tmp = 0
+        for x in self.G[A]:
+            if x.name == B:
+                del self.G[A][tmp]
+                self.classifierNum-=1
+                #print "usuwam"
+            tmp+=1
+        if len(self.G[A])==0:
+            del(self.G[A])
+            
+    def search(self,terminal,poprawnosc):
+        '''metoda wyszukuje caly slownik w poszukiwaniu klasyfikatorow pasujacych do przekazanego terminalu, metoda rozszerzona o symbol uniwersalny'''
+        find = 0
+        self.result = []
+        for x in self.G:
+            for T in self.G[x]:
+                if ((T.name == terminal) or (T.name == '#')):
+                    find = 1
+                    self.result.append(x)
+                    #przyznawanie punktow:
+                    T.u[int(poprawnosc)]+=1
+                    #self.setFitness(T)
+        if find == 1:    
+            return self.result
+        else:
+            return -1
+    
+    def getGramarStr(self):
+        '''metoda zwraca liste klasyfikatorow wraz z ich parametrami w postaci stringa'''
+        tmp = ""
+        for x in self.G:
+            for y in self.G[x]:
+                tmp += str(x) + " -->" + y.name +"\t"+"un= "+str(y.u[0])+"\t"+"up="+str(y.u[1])+"\t fitnes"+str(y.fitness)+"\n"
+        return tmp    
+        
+        
+    def CYK(self, slowo):
+        ''' algorytm CYK '''
+        poprawnosc = slowo[0]
+        slowo = slowo[1:]
+        table_CYK=[]
+        tmp = []
+        
+        #wypelnianie pierwszego poziomu:
+        for x in slowo:
+            a = self.search(x,poprawnosc)
+            if a == -1:
+                tmp.append([-1])
+                #scisk
+                if self.classifierNum>=self.parametry.np:
+                    self.scisk()
+                #pokrycie terminalne:
+                self.add(string.upper(x),x)
+            else:
+                tmp.append(a)
+                
+        #pokrycie startowe:
+        print "dlugosc="+str(len(slowo))+"  oprawnosc="+str(poprawnosc)
+        
+        if (len(slowo)==1) and (poprawnosc=='1'):
+            print "pokrycie startowe"
+            
+            #scisk
+            if self.classifierNum>=self.parametry.np:
+                self.scisk()
+            
+            #dodajemy            
+            self.add("S",slowo[0])
+            
+        table_CYK.append(tmp)
+        
+        #wypelnianie dalszych poziomow:
+        wiersz = 1
+        pozycja = 0
+        
+        while wiersz < len(slowo):
+            
+            tmp = []
+            while pozycja < (len(slowo)-wiersz):
+                K = self.szukajPar(wiersz,pozycja)
+                tmp.append(self.szukajTerminal(K,table_CYK,poprawnosc))
+                pozycja+=1
+            table_CYK.append(tmp)
+            wiersz+=1
+            pozycja = 0
+            print("\n")
+        self.setFitness()
+       
+        if self.classifierNum>=self.parametry.np:
+            self.scisk()
+        self.agessivCover()
+        #self.inwersja()
+        
+        #inwersja:
+        if self.parametry.Pi < random.random():
+            print "inwersja"
+            #metoda wyboru
+            slownik = self.G.keys()
+            tmp = random.randint(0,len(slownik)-1)
+            K=self.G[slownik[tmp]][random.randint(0,len(self.G[slownik[tmp]])-1)].name
+            if len(K)==2:
+                self.scisk()
+                self.add(slownik[tmp],K[1]+K[0])
+                  
+        if self.parametry.Pk < random.random():
+            #metoda wyboru
+            #self.krzyzowanie()
+            pass
+        return table_CYK
+        
+    def szukajPar(self,a,b):
+        '''metoda ta zwraca pary par generujace zdanie dla odpowiedniej pozcycji'''
+        tablica = []
+        a=a+1
+        b=b+1
+        for x in range(1,a):
+            tablica.append([[x-1,b-1],[a-x-1,b+x-1]])
+        return tablica
+    
+    def szukajTerminal(self,K,table_CYK,poprawnosc):
+        '''metoda zwraca liste pasujacych terminali'''
+        tmp = []
+        for x in K:
+            for a in table_CYK[x[0][0]][x[0][1]]:
+                for b in table_CYK[x[1][0]][x[1][1]]:
+                    wynik=self.search(str(a)+str(b),poprawnosc)
+                    if wynik != -1:
+                        for y in wynik:
+                            if y != -1:
+                                if not y in tmp:
+                                    tmp.extend(y)
+        if len(tmp)<=0:
+            tmp = [-1]
+        return tmp
+        
+    def setFitness(self):
+        for x in self.G:
+            for T in self.G[x]:
+                if (T.u[1]+T.u[0]) != 0:
+                    T.fitness = (T.u[1]-T.u[0])/(T.u[1]+T.u[0])
+                
+    def addStartSymbol(self,A):
+        '''mechanizm pokrycia dodajacy classyfikator typu S->a, start Symbol'''
+        tmp = 0
+        if self.G.has_key("S"):
+            for x in self.G["S"]:
+                if x.name == A:
+                    tmp+=1        
+            if tmp == 0:    
+                self.G["S"].append(classifier(A))
+                    #tu dodajemy tylko nie wiemy jak
+        else:
+            #tutaj musimy dodac juz calos wraz z kluczem:) 
+            self.G['S']=[classifier(A)]
+           
+    def universalCover(self):
+        '''tutaj nie rozumie do konca idei tego pokrycia'''
+        pass
+    
+    def fullCover(self):
+        '''tego tez nie dokonca czaje i trzeba sie zapyac'''
+        pass
+    
+    def agessivCover(self):
+        '''i tego tez nie rozumiem
+        zorbie tak: ze zbioru detektorow wybieram 3 i robie z nich klasyfikator'''
+        D = self.G.keys()
+        self.add(str(random.choice(D)),str(random.choice(D))+str(random.choice(D)))
+    
+    def krzyzowanie(self,A,B, classA, classB):
+        '''metoda krzyzowania klasyfikatoprow, jeszcze nie przetestowana
+        nie sprawdzone czy napewno dziala poprawnie!!!'''
+        '''tmp=0
+        for x in self.G[A]:
+            if x.name == classB:
+                tmp=1
+            if tmp==0:
+                self.G[A].append(classifier(classB))
+        
+        tmp=0
+        for x in self.G[B]:
+            if x.name == classA:
+                tmp=1
+            if tmp==0:
+                self.G[B].append(classifier(classA))'''
+        self.add(A,classB)
+        self.add(B,classA)
+        
+    def mutacja(self):
+        '''musze tutaj jeszcze przeimplemntowac inne elementy, dodac tablice terminali(G.keys()) i nieterminali
+        nie sprawdzone czy napewno dziala poprawnie!!!'''
+        
+    def inwersja(self,A,classA):
+        ''' genetyk inwersji
+        nie sprawdzone czy napewno dziala poprawnie!!!'''
+        for x in G[A]:
+            if x.name == classB.name:
+                tmp=1
+            if tmp==0:
+                slef.G[A].append(classifier(str(classA[1])+str(classA[0])))
+         
+    def pokrycieTerminalne(self, term):
+        '''operacja pokrycia terminalnego, przyjmuje terminal do dodania'''
+        self.add()
+        pass
+    
+    def pokrycieStartowe(self, term):
+        '''dodanie pokrycia startowego dal zdan dlugosci 1'''
+        pass
+    
+    def scisk(self):
+        W ={}
+        K ={}
+        keys = self.G.keys()
+        T=random.randint(0,len(keys)-1)
+        N = random.randint(0,len(self.G[keys[T]])-1)
+        W[keys[T]]=[self.G[keys[T]][N]]
+        A=keys[T]
+        B=self.G[keys[T]][N].name
+        fit = W[keys[T]][0].fitness
+        for x in range(0,self.parametry.cs-1):
+            T=random.randint(0,len(keys)-1)
+            N = random.randint(0,len(self.G[keys[T]])-1)
+            print "razz"
+            if W.has_key(keys[T]) and len(self.G[keys[T]][N].name)==2:
+                W[keys[T]].append(self.G[keys[T]][N])
+            else:
+                if len(self.G[keys[T]][N].name)==2:
+                    W[keys[T]]=[self.G[keys[T]][N]]
+        if self.G[keys[T]][N] < fit:
+            A = keys[T]
+            B = self.G[keys[T]][N].name
+        
+        self.rem(A,B)
+        return W
+
+    
+    
+class classifier():
+    '''klasa bedzie representowac klasyfikator w systemie'''
+    def __init__(self,name):
+        #prawa strona kalsyfikatora
+        self.name = name
+        #ilosc poprawnych uzyc
+        self.u = []
+        self.u.append(0.0)
+        #ilosc niepoprawnych uzyc
+        self.u.append(0.0)
+        self.p = 0.0
+        self.d =0.0
+        self.fitness = 0.0
+        
+    def setName(self,name):
+        self.name=name
+    
+    def getName(self):
+        return self.name
+    
+    
+#SEKCJA TESTOWA:
+G = gramatyka()
+K = gramatyka()
+
+print G.getGramarStr()
+#M = G.scisk()
+#print G.getGramarStr()
+#print M
+
+

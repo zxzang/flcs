@@ -1,0 +1,8 @@
+http://iwiwdsmi.blogspot.com/2007/01/how-to-install-pyqt-41-python-25-and-qt_8340.html
+przyklad kotry w pracy zadzialal
+
+biblioteka gui dokumentacja:
+http://doc.trolltech.com/4.3/classes.html
+
+wyjaœnienie teori krat(po polsku):
+http://www.matematyka.pl/viewtopic.php?t=25327
