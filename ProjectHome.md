@@ -1,0 +1,1 @@
+master thesis on Wroclaw University of Technology
